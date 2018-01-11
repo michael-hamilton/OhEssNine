@@ -1,0 +1,18 @@
+{
+  "name": "os9",
+  "version": "0.0.0",
+  "description": "OS9 HTML Interface",
+  "main": "OS9.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Hamilton",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-pug": "^3.3.0",
+    "gulp-requirejs-optimize": "^1.2.0",
+    "gulp-sass": "^3.1.0",
+    "requirejs": "^2.3.5"
+  }
+}

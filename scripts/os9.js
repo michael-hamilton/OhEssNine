@@ -1,1 +1,0 @@
-console.log("OS9"),define("os9",function(){});

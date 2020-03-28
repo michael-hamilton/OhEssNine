@@ -8,11 +8,13 @@ class Window extends Component {
     super(props);
 
     this.state = {
-      isMoving: false,
       height: 400,
+      isMoving: false,
       x: 0,
+      xOffset: 0,
       y: 0,
-      width: 400,
+      yOffset: 0,
+      width: 600,
     };
   }
 
@@ -21,12 +23,21 @@ class Window extends Component {
     return (
       <div
         className='window'
-        onMouseDown={() => this.setState({isMoving: true})}
-        onMouseUp={() => this.setState({isMoving: false})}
-        onMouseLeave={() => this.setState({isMoving: false})}
+        onMouseDown={(e) => {
+          this.setState({
+            isMoving: true,
+            xOffset: e.nativeEvent.offsetX,
+            yOffset: e.nativeEvent.offsetY,
+          })
+        }}
+        onMouseUp={() => this.setState({isMoving: false, xOffset: 0, yOffset:0})}
+        onMouseLeave={() => this.setState({isMoving: false, xOffset: 0, yOffset:0})}
         onMouseMove={(e) => {
           if(this.state.isMoving) {
-            this.setState({x: e.clientX, y: e.pageY})
+            this.setState({
+              x: e.pageX - this.state.xOffset,
+              y: e.pageY - this.state.yOffset
+            })
           }
         }}
         style={{

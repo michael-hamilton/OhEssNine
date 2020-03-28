@@ -19,10 +19,9 @@ class Menu extends Component {
 
   getTime() {
     const now = new Date();
-    const seconds = now.getSeconds();
-    const minutes = now.getMinutes();
     const hours = now.getHours();
-    const time = `${hours}:${minutes}:${seconds}`;
+    const minutes = now.getMinutes();
+    const time = `${hours}:${minutes}`;
     this.setState({time});
     setTimeout(() => this.getTime(), 500);
   }

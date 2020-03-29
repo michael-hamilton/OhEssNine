@@ -11,13 +11,12 @@ class Window extends Component {
       height: 400,
       isMoving: false,
       x: 0,
-      xOffset: 0,
+      xOffset: null,
       y: 0,
-      yOffset: 0,
+      yOffset: null,
       width: 600,
     };
   }
-
 
   render() {
     return (
@@ -30,13 +29,13 @@ class Window extends Component {
             yOffset: e.nativeEvent.offsetY,
           })
         }}
-        onMouseUp={() => this.setState({isMoving: false, xOffset: 0, yOffset:0})}
-        onMouseLeave={() => this.setState({isMoving: false, xOffset: 0, yOffset:0})}
+        onMouseUp={() => this.setState({isMoving: false, xOffset: null, yOffset:null})}
+        onMouseLeave={() => this.setState({isMoving: false, xOffset: null, yOffset:null})}
         onMouseMove={(e) => {
-          if(this.state.isMoving) {
+          if(this.state.isMoving && this.state.xOffset && this.state.yOffset) {
             this.setState({
-              x: e.pageX - this.state.xOffset,
-              y: e.pageY - this.state.yOffset
+              x: e.screenX - this.state.xOffset,
+              y: e.screenY - this.state.yOffset
             })
           }
         }}

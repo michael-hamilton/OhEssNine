@@ -25,7 +25,7 @@ class Menu extends Component {
     const hours = hour24 > 12 ? hour24 - 12 : hour24 === 0 ? 12 : hour24;
     const minutes = now.getMinutes();
     const month = now.getMonth() + 1;
-    const period = hour24 > 12 ? 'PM' : 'AM';
+    const period = hour24 >= 12 ? 'PM' : 'AM';
     const day = now.getDate();
     const year = now.getFullYear();
     const time = `${hours}:${minutes > 9 ? minutes : `0${minutes}`} ${period}`;

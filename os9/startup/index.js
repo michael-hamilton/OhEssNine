@@ -48,7 +48,7 @@ class Startup extends Component {
       <div className='startup-wrapper' style={{display: this.state.loaderProgress >= 100 ? 'none' : 'flex'}}>
         <div className='startup'>
           <div className='content'>
-            <img src={MikeOS} height={140} width={140}/>
+            <div style={{backgroundImage: `url(${MikeOS})`}} className='startup-image'/>
             <h1 className='startup-title'>Mike OS 9</h1>
           </div>
           <Loader progress={this.state.loaderProgress}/>

@@ -1,0 +1,61 @@
+/* Startup */
+
+.startup-wrapper
+  align-items: center
+  background-color: rgb(125, 153, 215)
+  display: flex
+  justify-content: center
+  height: 100%
+  width: 100%
+
+  .startup
+    background-color: rgb(221, 221, 221)
+    border: 1px solid rgb(246, 246, 246)
+    box-shadow: 0 0 2px 2px rgba(33, 33, 39, 0.7)
+    display: flex
+    flex-direction: column
+    position: absolute
+    height: 400px
+    width: 500px
+
+    .content
+      align-items: center
+      background-color: #fff
+      border: 1px solid rgb(33, 33, 39)
+      box-shadow: 0 0 2px 1px rgba(33, 33, 39, 0.7) inset
+      display: flex
+      flex: 1
+      flex-direction: column
+      justify-content: center
+      margin: 6.25% 8% 0% 8%
+
+      .startup-title
+        font-family: "Garamond", serif
+        font-size: 80px
+        font-weight: 200
+        text-align: center
+
+    .loader
+      align-items: center
+      display: flex
+      flex-direction: column
+      justify-content: center
+      margin: 20px
+
+      .loading-bar
+        border: 1px solid rgb(33, 33, 39)
+        box-shadow: 0 0 2px 1px rgba(33, 33, 39, 0.7) inset
+        height: 10px
+        overflow: hidden
+        width: 50%
+
+        .loading-progress
+          background: rgb(27, 27, 61) linear-gradient(to bottom, rgb(37, 37, 112) 0%, rgb(140, 140, 242) 25%, rgb(229, 229, 242) 50%, rgb(140, 140, 242) 75%, rgb(0, 0, 64) 97%)
+          border-right: 2px solid rgb(0, 0, 64)
+          box-shadow: 1px 0 2px 2px rgba(33, 33, 39, 0.7)
+          height: 100%
+          width: 100%
+
+      .loader-label
+        margin: 8px
+        text-align: center

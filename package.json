@@ -12,6 +12,7 @@
     "sass": "^1.26.3"
   },
   "dependencies": {
+    "js-cookie": "^2.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }

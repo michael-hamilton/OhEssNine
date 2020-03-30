@@ -10,9 +10,9 @@ class Window extends Component {
     this.state = {
       height: 400,
       isMoving: false,
-      x: 0,
+      x: 100,
       xOffset: null,
-      y: 0,
+      y: 100,
       yOffset: null,
       width: 600,
     };

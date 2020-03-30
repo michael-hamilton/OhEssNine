@@ -14,7 +14,7 @@ class Desktop extends Component {
 
     this.state = {
       icons: [
-        {title: 'Icon 1', x: 580, y: 50},
+        {title: 'Icon 1', x: 1100, y: 50},
         {title: 'Icon 2', x: 1100, y: 150},
       ]
     }

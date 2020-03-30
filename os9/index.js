@@ -7,7 +7,7 @@ import Startup from './startup';
 
 const OS9 = () => (
   <Fragment>
-    {/*<Startup />*/}
+    <Startup />
     <Menu />
     <Desktop />
   </Fragment>

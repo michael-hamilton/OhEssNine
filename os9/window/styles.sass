@@ -3,7 +3,7 @@
 .window
   background-color: #c1c1c1
   border: 1px solid rgb(33, 33, 39)
-  box-shadow: 1px 1px 2px 0 rgba(33, 33, 39, 0.7)
+  box-shadow: 1px 1px 2px 0 rgba(33, 33, 39, 0.7), 1px 1px 2px 0 rgb(246, 246, 246) inset, -1px -1px 2px 0 rgb(33, 33, 39) inset
   display: flex
   flex-direction: column
   position: absolute
@@ -19,6 +19,9 @@
       user-select: none
 
   .content
-    background-color: #fff
+    background-color: rgb(255, 255, 255)
+    box-shadow: 0 0 2px 0 rgba(33, 33, 39) inset
+    border: 1px solid rgb(33, 33, 39)
     flex: 1
     margin: 0 6px 6px 6px
+

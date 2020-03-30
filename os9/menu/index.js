@@ -37,15 +37,15 @@ class Menu extends Component {
 
   // Accepts an array of menu item objects and returns a properly structured menu
   renderMenuItems(menuItems) {
-    return menuItems.map(menuItem => {
+    return menuItems.map((menuItem, key) => {
       let subMenu;
       if(menuItem.items) {
-        subMenu = <ul className='submenu'>{this.renderMenuItems(menuItem.items)}</ul>;
+        subMenu = <ul className='submenu' key={key}>{this.renderMenuItems(menuItem.items)}</ul>;
       }
       if(menuItem.sep) {
-        return <li className='menu-separator' />
+        return <li className='menu-separator' key={key} />
       }
-      return <li onClick={menuItem.onClick}>{menuItem.name}{subMenu}</li>
+      return <li onClick={menuItem.onClick} key={key}>{menuItem.name}{subMenu}</li>
     })
   }
 

@@ -23,8 +23,9 @@ class Window extends Component {
       <div
         className='window'
         onMouseDown={(e) => {
+          const {className} = e.target;
           this.setState({
-            isMoving: true,
+            isMoving: (className === 'window' || className === 'header'),
             xOffset: e.nativeEvent.offsetX,
             yOffset: e.nativeEvent.offsetY,
           })
@@ -35,7 +36,7 @@ class Window extends Component {
           if(this.state.isMoving && this.state.xOffset && this.state.yOffset) {
             this.setState({
               x: e.screenX - this.state.xOffset,
-              y: e.screenY - this.state.yOffset
+              y: e.pageY - this.state.yOffset - 32
             })
           }
         }}

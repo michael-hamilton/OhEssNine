@@ -1,24 +1,42 @@
-/* Window */
+/* Alert */
 
-.window
-  background-color: #c1c1c1
+.alert
+  background-color: rgb(221, 221, 221)
   border: 1px solid rgb(33, 33, 39)
   box-shadow: 1px 1px 2px 0 rgba(33, 33, 39, 0.7)
   display: flex
   flex-direction: column
-  position: absolute
+  height: 180px
+  margin: auto auto
+  top: 30%
   z-index: 1000
+  width: 420px
 
-  .header
+  .wrapper
+    border: 1px solid rgb(210, 95, 95)
+    box-shadow: 1px 1px 2px 0 rgb(246, 246, 246) inset, -1px -1px 2px 0 rgb(33, 33, 39) inset
     display: flex
-    justify-content: space-evenly
-    margin: 3px 0
+    flex-direction: column
+    height: 100%
 
-    .title
-      font-weight: 700
-      user-select: none
+    .content
+      display: flex
+      flex: 1
+      flex-direction: row
+      justify-content: space-evenly
+      padding: 20px
 
-  .content
-    background-color: #fff
-    flex: 1
-    margin: 0 6px 6px 6px
+      .alert-icon
+        height: 50px
+        width: 50px
+
+      .alert-text
+        height: 75%
+        user-select: none
+        width: 66%
+
+    .controls
+      display: flex
+      justify-content: flex-end
+      justify-self: flex-end
+      padding: 20px

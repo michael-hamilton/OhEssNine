@@ -4,7 +4,7 @@ const menuItems = [
   {
     name: 'File',
     items: [
-      {name: 'About This Computer', onClick: () => alert('click')},
+      {name: 'About This Mike', onClick: () => alert('click')},
       {sep: true},
       {name: 'Menu 1'}
     ]

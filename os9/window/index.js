@@ -1,61 +1,55 @@
 // OS 9 Window
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import './styles.sass';
 
-class Window extends Component {
-  constructor(props) {
-    super(props);
+const WindowOutline = props => (
+  <div
+    className='window-outline'
+    style={{
+      height: props.height,
+      left: props.x,
+      top: props.y,
+      width: props.width,
+    }}
+  />
+);
 
-    this.state = {
-      height: 400,
-      isMoving: false,
-      x: 100,
-      xOffset: null,
-      y: 100,
-      yOffset: null,
-      width: 600,
-    };
-  }
-
-  render() {
-    return (
-      <div
-        className='window'
-        onMouseDown={(e) => {
-          const {className} = e.target;
-          this.setState({
-            isMoving: (className === 'window' || className === 'header'),
-            xOffset: e.nativeEvent.offsetX,
-            yOffset: e.nativeEvent.offsetY,
-          })
-        }}
-        onMouseUp={() => this.setState({isMoving: false, xOffset: null, yOffset:null})}
-        onMouseLeave={() => this.setState({isMoving: false, xOffset: null, yOffset:null})}
-        onMouseMove={(e) => {
-          if(this.state.isMoving && this.state.xOffset && this.state.yOffset) {
-            this.setState({
-              x: e.screenX - this.state.xOffset,
-              y: e.pageY - this.state.yOffset - 32
-            })
-          }
-        }}
-        style={{
-          height: this.state.height,
-          left: this.state.x,
-          top: this.state.y,
-          width: this.state.width,
-        }}
-      >
-        <div className='header'>
-          <label className='title'>{this.props.title}</label>
-        </div>
-        <div className='content'>
-        </div>
+const Window = props => (
+  <Fragment>
+    {
+      props.isMoving ?
+        <WindowOutline
+          height={props.height}
+          x={props.newX}
+          y={props.newY}
+          width={props.width}
+        />
+        : null
+    }
+    <div
+      className='window'
+      onMouseDown={e => {
+        const {className} = e.target;
+        if(className === 'window' || className === 'header') {
+          props.onWindowDragStart(e);
+        }
+      }}
+      style={{
+        height: props.height,
+        left: props.x,
+        top: props.y,
+        width: props.width,
+      }}
+    >
+      <div className='header'>
+        <label className='title'>{props.title}</label>
       </div>
-    );
-  }
-}
+      <div className='content'>
+      </div>
+    </div>
+  </Fragment>
+);
 
 Window.defaultProps = {
   title: 'Window'

@@ -31,6 +31,10 @@ class Startup extends Component {
     Cookies.set('hasLoadedBefore', true);
   }
 
+  handleContextMenu(e) {
+    e.preventDefault();
+  }
+
   // Updates the pseudo loader to simulate a loading bar
   initPseudoLoader(){
     let updateInterval;
@@ -45,7 +49,11 @@ class Startup extends Component {
 
   render() {
     return (
-      <div className='startup-wrapper' style={{display: this.state.loaderProgress >= 100 ? 'none' : 'flex'}}>
+      <div
+        className='startup-wrapper'
+        onContextMenu={e => this.handleContextMenu(e)}
+        style={{display: this.state.loaderProgress >= 100 ? 'none' : 'flex'}}
+      >
         <div className='startup'>
           <div className='content'>
             <div style={{backgroundImage: `url(${MikeOS})`}} className='startup-image'/>

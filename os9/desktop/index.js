@@ -17,17 +17,29 @@ class Desktop extends Component {
         {title: 'Icon 1', x: 1100, y: 50},
         {title: 'Icon 2', x: 1100, y: 150},
       ],
-      windows: [{
-        isMoving: false,
-        offsetX: null,
-        offsetY: null,
-        x: 100,
-        y: 100,
-        newX: null,
-        nexY: null,
-        height: 400,
-        width: 600,
-      }]
+      activeWindow: null,
+      windows: {
+        w1: {
+          offsetX: null,
+          offsetY: null,
+          x: 100,
+          y: 100,
+          newX: null,
+          nexY: null,
+          height: 400,
+          width: 600,
+        },
+        w2: {
+          offsetX: null,
+          offsetY: null,
+          x: 400,
+          y: 400,
+          newX: null,
+          nexY: null,
+          height: 200,
+          width: 200,
+        }
+      }
     }
   }
 
@@ -44,57 +56,74 @@ class Desktop extends Component {
   }
 
   onMouseMove(e) {
-    if(this.state.windows.isMoving) {
+    if(this.state.activeWindow) {
       this.setState({
         windows: {
-          ...this.state.window,
-          newX: e.screenX - this.state.windows.xOffset,
-          newY: e.pageY - this.state.windows.yOffset - 32
+          ...this.state.windows,
+          [this.state.activeWindow]: {
+            ...this.state.windows[this.state.activeWindow],
+            newX: e.screenX - this.state.windows[this.state.activeWindow].xOffset,
+            newY: e.pageY - this.state.windows[this.state.activeWindow].yOffset - 32
+          }
         }
       })
     }
   }
 
-  handleWindowDragStart(e) {
+  handleWindowDragStart(e, windowKey) {
+    console.log(windowKey);
     this.setState({
+      activeWindow: windowKey,
       windows: {
         ...this.state.windows,
-        isMoving: true,
-        xOffset: e.nativeEvent.offsetX,
-        yOffset: e.nativeEvent.offsetY,
-        newX: this.state.windows.x,
-        newY: this.state.windows.y,
+        [windowKey]: {
+          ...this.state.windows[windowKey],
+          xOffset: e.nativeEvent.offsetX,
+          yOffset: e.nativeEvent.offsetY,
+          newX: this.state.windows[windowKey].x,
+          newY: this.state.windows[windowKey].y,
+        }
       }
     });
   }
 
   onMouseUp(e) {
     this.setState({
+      activeWindow: null,
       windows: {
         ...this.state.windows,
-        isMoving: false,
-        x: this.state.windows.newX || this.state.windows.x,
-        y: this.state.windows.newY || this.state.windows.y,
-        newX: null,
-        newY: null
+        [this.state.activeWindow]: {
+          ...this.state.windows[this.state.activeWindow],
+          x: this.state.windows[this.state.activeWindow].newX || this.state.windows[this.state.activeWindow].x,
+          y: this.state.windows[this.state.activeWindow].newY || this.state.windows[this.state.activeWindow].y,
+          newX: null,
+          newY: null
+        }
       }
     });
   }
 
-  renderWindows(windows) {
-    console.log(windows);
-    return windows.map(window => (
-      <Window
-        x={window.x}
-        y={window.y}
-        newX={window.newX}
-        newY={window.newY}
-        height={window.height}
-        width={window.width}
-        onWindowDragStart={this.handleWindowDragStart}
-        isMoving={window.isMoving}
-      />
-    ))
+  renderWindows(windows, activeWindowKey, handleWindowDragStart) {
+    const renderedWindows = [];
+
+    Object.keys(windows).forEach((windowKey) => {
+      const currentWindow = this.state.windows[windowKey];
+      renderedWindows.push(
+        <Window
+          key={windowKey}
+          x={currentWindow.x}
+          y={currentWindow.y}
+          newX={currentWindow.newX}
+          newY={currentWindow.newY}
+          height={currentWindow.height}
+          width={currentWindow.width}
+          onWindowDragStart={(e) => handleWindowDragStart(e, windowKey)}
+          isMoving={activeWindowKey === windowKey}
+        />
+      )
+    });
+
+    return renderedWindows;
   }
 
   render() {
@@ -106,16 +135,13 @@ class Desktop extends Component {
         onMouseUp={e => this.onMouseUp(e)}
         style={{backgroundColor: preferences.desktop.background}}
       >
-        {this.renderWindows(this.state.windows)}
+        {this.renderWindows(this.state.windows, this.state.activeWindow, this.handleWindowDragStart.bind(this))}
         {this.renderIcons()}
 
         {/*<Alert*/}
         {/*  text='This is an alert.'*/}
         {/*  icon={alert}*/}
-        {/*  buttons={[*/}
-        {/*    {title: 'No'},*/}
-        {/*    {title: 'Yes'}*/}
-        {/*  ]}*/}
+        {/*  buttons={[{title: 'No'}, {title: 'Yes'}]}*/}
         {/*/>*/}
       </div>
     );

@@ -9,9 +9,33 @@
   z-index: 1000
 
   .header
+    align-items: center
     display: flex
     justify-content: space-evenly
     margin: 3px 0
+
+    .close-window-button-container
+      border: 1px solid rgb(57, 57, 57)
+      box-shadow: 1px 1px 2px 0 rgb(246, 246, 246), 0px 0px 2px 0 rgb(33, 33, 39)
+      height: 15px
+      left: 8px
+      padding: 0
+      position: absolute
+      width: 15px
+
+      .close-window-button
+        background-color: rgb(193, 193, 193)
+        box-shadow: -1px -1px 3px 0 rgb(246, 246, 246) inset, 1px 1px 3px 0 rgb(158, 158, 158) inset
+        display: block
+        height: 100%
+        width: 100%
+
+      &:active
+        .close-window-button
+          box-shadow: -4px -4px 5px 0 rgba(246, 246, 246, 0.5) inset, 1px 1px 6px 2px rgb(33, 33, 39) inset
+
+      &:focus
+        outline: none
 
     .title
       font-weight: 700

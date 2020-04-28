@@ -48,7 +48,6 @@ class Desktop extends Component {
     e.preventDefault();
   }
 
-
   renderIcons() {
     return (
       this.state.icons.map((icon, key) =>
@@ -112,7 +111,7 @@ class Desktop extends Component {
     });
   }
 
-  renderWindows(windows, activeWindowKey, handleWindowDragStart, handleWindowFocus) {
+  renderWindows(windows, activeWindowKey, handleWindowDragStart, handleWindowFocus, handleWindowClose) {
     const renderedWindows = [];
 
     Object.keys(windows).forEach((windowKey) => {
@@ -130,6 +129,7 @@ class Desktop extends Component {
           height={currentWindow.height}
           width={currentWindow.width}
           onWindowFocus={(e) => handleWindowFocus(e, windowKey)}
+          onWindowClose={() => handleWindowClose(windowKey)}
           onWindowDragStart={(e) => handleWindowDragStart(e, windowKey)}
           isMoving={activeWindowKey === windowKey}
         />
@@ -143,6 +143,12 @@ class Desktop extends Component {
     this.updateWindowZIndexes(windowKey);
   }
 
+  handleWindowClose(windowKey) {
+    const oldWindows = this.state.windows;
+    delete oldWindows[windowKey];
+    this.setState({windows: {...oldWindows}})
+  }
+
   render() {
     return (
       <div
@@ -153,7 +159,15 @@ class Desktop extends Component {
         onWindowFocus={e => this.onMouseUp(e)}
         style={{backgroundColor: preferences.desktop.background}}
       >
-        {this.renderWindows(this.state.windows, this.state.activeWindow, this.handleWindowDragStart.bind(this), this.handleWindowFocus.bind(this))}
+        {
+          this.renderWindows(
+            this.state.windows,
+            this.state.activeWindow,
+            this.handleWindowDragStart.bind(this),
+            this.handleWindowFocus.bind(this),
+            this.handleWindowClose.bind(this)
+          )
+        }
         {this.renderIcons()}
 
         {/*<Alert*/}

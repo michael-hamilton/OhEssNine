@@ -15,6 +15,12 @@ const WindowOutline = props => (
   />
 );
 
+const CloseWindowButton = props => (
+  <button className='close-window-button-container' onClick={props.onWindowClose}>
+    <span className='close-window-button' />
+  </button>
+)
+
 const Window = props => (
   <Fragment>
     {
@@ -47,6 +53,14 @@ const Window = props => (
       }}
     >
       <div className='header'>
+        {
+          props.isActiveWindow ?
+            <CloseWindowButton
+              style={{justifySelf: 'flex-start'}}
+              onWindowClose={props.onWindowClose}
+            /> :
+            null
+        }
         <label className='title'>{props.title}</label>
       </div>
       <div className='content'>

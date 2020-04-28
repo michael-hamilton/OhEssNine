@@ -21,11 +21,13 @@ class Startup extends Component {
     this.state = {
       loaderProgress: 0
     };
+
+    this.loaderSpeed = 50;
   }
 
   componentDidMount() {
     if(Cookies.get('hasLoadedBefore')) {
-      this.setState({loaderProgress: 75});
+      this.loaderSpeed = 10;
     }
     this.initPseudoLoader();
     Cookies.set('hasLoadedBefore', true);
@@ -44,7 +46,7 @@ class Startup extends Component {
         clearInterval(updateInterval);
       }
     };
-    updateInterval = setInterval(() => update(1), 50);
+    updateInterval = setInterval(() => update(1), this.loaderSpeed);
   }
 
   render() {

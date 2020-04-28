@@ -18,6 +18,7 @@ class Desktop extends Component {
         {title: 'Icon 2', x: 1100, y: 150},
       ],
       activeWindow: null,
+      zIndexes: ['w1', 'w2'],
       windows: {
         w1: {
           offsetX: null,
@@ -71,7 +72,7 @@ class Desktop extends Component {
   }
 
   handleWindowDragStart(e, windowKey) {
-    console.log(windowKey);
+    this.updateWindowZIndexes(windowKey);
     this.setState({
       activeWindow: windowKey,
       windows: {
@@ -85,6 +86,14 @@ class Desktop extends Component {
         }
       }
     });
+  }
+
+  updateWindowZIndexes(windowKey) {
+    const oldIndexes = this.state.zIndexes;
+    oldIndexes.splice(this.state.zIndexes.indexOf(windowKey), 1);
+    const zIndexUpdate = [windowKey, ...oldIndexes];
+
+    this.setState({zIndexes: zIndexUpdate.reverse()});
   }
 
   onMouseUp(e) {
@@ -103,20 +112,24 @@ class Desktop extends Component {
     });
   }
 
-  renderWindows(windows, activeWindowKey, handleWindowDragStart) {
+  renderWindows(windows, activeWindowKey, handleWindowDragStart, handleWindowFocus) {
     const renderedWindows = [];
 
     Object.keys(windows).forEach((windowKey) => {
       const currentWindow = this.state.windows[windowKey];
+      const currentWindowZIndex = this.state.zIndexes.indexOf(windowKey);
       renderedWindows.push(
         <Window
           key={windowKey}
           x={currentWindow.x}
           y={currentWindow.y}
+          z={this.state.zIndexes.indexOf(windowKey)}
+          isActiveWindow={currentWindowZIndex === this.state.zIndexes.length - 1}
           newX={currentWindow.newX}
           newY={currentWindow.newY}
           height={currentWindow.height}
           width={currentWindow.width}
+          onWindowFocus={(e) => handleWindowFocus(e, windowKey)}
           onWindowDragStart={(e) => handleWindowDragStart(e, windowKey)}
           isMoving={activeWindowKey === windowKey}
         />
@@ -126,6 +139,10 @@ class Desktop extends Component {
     return renderedWindows;
   }
 
+  handleWindowFocus(e, windowKey) {
+    this.updateWindowZIndexes(windowKey);
+  }
+
   render() {
     return (
       <div
@@ -133,9 +150,10 @@ class Desktop extends Component {
         onContextMenu={e => this.handleContextMenu(e)}
         onMouseMove={e => this.onMouseMove(e)}
         onMouseUp={e => this.onMouseUp(e)}
+        onWindowFocus={e => this.onMouseUp(e)}
         style={{backgroundColor: preferences.desktop.background}}
       >
-        {this.renderWindows(this.state.windows, this.state.activeWindow, this.handleWindowDragStart.bind(this))}
+        {this.renderWindows(this.state.windows, this.state.activeWindow, this.handleWindowDragStart.bind(this), this.handleWindowFocus.bind(this))}
         {this.renderIcons()}
 
         {/*<Alert*/}

@@ -28,11 +28,14 @@ const Window = props => (
         : null
     }
     <div
-      className='window'
+      className={`window ${props.isActiveWindow ? 'active' : 'inactive'}`}
       onMouseDown={e => {
         const {className} = e.target;
         if(className === 'window' || className === 'header') {
           props.onWindowDragStart(e);
+        }
+        else {
+          props.onWindowFocus(e);
         }
       }}
       style={{
@@ -40,6 +43,7 @@ const Window = props => (
         left: props.x,
         top: props.y,
         width: props.width,
+        zIndex: props.z,
       }}
     >
       <div className='header'>

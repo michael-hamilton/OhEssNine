@@ -1,7 +1,6 @@
 /* Window */
 
 .window
-  background-color: #c1c1c1
   border: 1px solid rgb(33, 33, 39)
   box-shadow: 1px 1px 2px 0 rgba(33, 33, 39, 0.7), 1px 1px 2px 0 rgb(246, 246, 246) inset, -1px -1px 2px 0 rgb(33, 33, 39) inset
   display: flex
@@ -25,6 +24,20 @@
     border: 1px solid rgb(33, 33, 39)
     flex: 1
     margin: 0 6px 6px 6px
+
+  &.inactive
+    background-color: rgb(238, 238, 238)
+
+    .header
+      .title
+        color: rgb(119, 119, 119)
+
+  &.active
+    background-color: rgb(193, 193, 193)
+
+    .header
+      .title
+        color: rgb(0, 0, 0)
 
 .window-outline
   border: 1px dotted rgb(33, 33, 39)

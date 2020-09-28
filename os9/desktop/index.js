@@ -48,13 +48,6 @@ class Desktop extends Component {
     e.preventDefault();
   }
 
-  renderIcons() {
-    return (
-      this.state.icons.map((icon, key) =>
-        <Icon title={icon.title} x={icon.x} y={icon.y} key={key} />)
-    );
-  }
-
   onMouseMove(e) {
     if(this.state.activeWindow) {
       this.setState({
@@ -111,7 +104,7 @@ class Desktop extends Component {
     });
   }
 
-  renderWindows(windows, activeWindowKey, handleWindowDragStart, handleWindowFocus, handleWindowClose) {
+  renderWindows(windows) {
     const renderedWindows = [];
 
     Object.keys(windows).forEach((windowKey) => {
@@ -128,15 +121,22 @@ class Desktop extends Component {
           newY={currentWindow.newY}
           height={currentWindow.height}
           width={currentWindow.width}
-          onWindowFocus={(e) => handleWindowFocus(e, windowKey)}
-          onWindowClose={() => handleWindowClose(windowKey)}
-          onWindowDragStart={(e) => handleWindowDragStart(e, windowKey)}
-          isMoving={activeWindowKey === windowKey}
+          onWindowFocus={(e) => this.handleWindowFocus(e, windowKey)}
+          onWindowClose={() => this.handleWindowClose(windowKey)}
+          onWindowDragStart={(e) => this.handleWindowDragStart(e, windowKey)}
+          isMoving={this.state.activeWindow === windowKey}
         />
       )
     });
 
     return renderedWindows;
+  }
+
+  renderIcons(icons) {
+    return (
+      icons.map((icon, key) =>
+        <Icon title={icon.title} x={icon.x} y={icon.y} key={key} />)
+    );
   }
 
   handleWindowFocus(e, windowKey) {
@@ -160,15 +160,9 @@ class Desktop extends Component {
         style={{backgroundColor: preferences.desktop.background}}
       >
         {
-          this.renderWindows(
-            this.state.windows,
-            this.state.activeWindow,
-            this.handleWindowDragStart.bind(this),
-            this.handleWindowFocus.bind(this),
-            this.handleWindowClose.bind(this)
-          )
+          this.renderWindows(this.state.windows)
         }
-        {this.renderIcons()}
+        {this.renderIcons(this.state.icons)}
 
         {/*<Alert*/}
         {/*  text='This is an alert.'*/}

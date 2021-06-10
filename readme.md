@@ -10,4 +10,4 @@ Clone the repo, `npm i`, then `npm run dev`. A dev server will startup, probably
 Released under the MIT license.
 
 ## Acknowledgement
-Made by [Mike Hamilton](http://hamblest.one).
+Made by [Mike Hamilton](http://miska.me).
